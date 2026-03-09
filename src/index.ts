@@ -6,6 +6,7 @@ dotenv.config({path: path.resolve(__dirname, '../.env')}); //вызов, ком�
 import cors from "cors";
 import express from "express";
 import router from "./routes/catalog.routes";
+import authRoutes from "./routes/auth.routes";
 import { specs, swaggerUi } from "./swagger";
 
 
@@ -14,8 +15,9 @@ const PORT = process.env.PORT || 5000; // здесь мы обращается �
 
 app.use(cors());//разрешает запросы с любого origin
 app.use(express.json());//Парсим тело запроса в JSON
-app.use('/api', router);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/auth", authRoutes);
+app.use('/api', router);
 
 
 app.get('/', (req, res) => { // "/" - url, reques -данные которые передает нам клиент при нашем запросе, respons - то что мы хотели бы ответить нашему клиенту. 
