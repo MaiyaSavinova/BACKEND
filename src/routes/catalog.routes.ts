@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { CatalogController } from "../controllers/catalog.controller";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -75,7 +76,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Todo'
  */
-router.get("/catalog", CatalogController.getAll);
+router.get("/catalog", authMiddleware, CatalogController.getAll);
 
 /**
  * @swagger
@@ -107,7 +108,7 @@ router.get("/catalog", CatalogController.getAll);
  *               items:
  *                 $ref: '#/components/schemas/Todo'
  */
-router.get(  "/catalog-pagination",  CatalogController.getAllWithPagination);
+router.get(  "/catalog-pagination",  authMiddleware, CatalogController.getAllWithPagination);
 
 /**
  * @swagger
@@ -137,7 +138,7 @@ router.get(  "/catalog-pagination",  CatalogController.getAllWithPagination);
  *       404:
  *         description: Todo not found
  */
-router.get("/catalog/:id", CatalogController.getById);
+router.get("/catalog/:id", authMiddleware, CatalogController.getById);
 
 /**
  * @swagger
@@ -162,7 +163,7 @@ router.get("/catalog/:id", CatalogController.getById);
  *             schema:
  *               $ref: '#/components/schemas/Todo'
  */
-router.post("/catalog", CatalogController.create);
+router.post("/catalog", authMiddleware, CatalogController.create);
 
 /**
  * @swagger
@@ -198,7 +199,7 @@ router.post("/catalog", CatalogController.create);
  *       404:
  *         description: Todo not found
  */
-router.patch("/catalog/:id", CatalogController.update);
+router.patch("/catalog/:id", authMiddleware, CatalogController.update);
 
 /**
  * @swagger
@@ -225,7 +226,7 @@ router.patch("/catalog/:id", CatalogController.update);
  *         description: Todo not found
  */
 
-router.delete("/catalog/:id", CatalogController.delete);
+router.delete("/catalog/:id", authMiddleware, CatalogController.delete);
 
 
 export default router;
